@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.2.1...v1.2.2) (2026-02-24)
+
+
+### Bug Fixes
+
+* **deps:** update curlimages/curl docker tag to v8.18.0 ([#5](https://github.com/user-cube/bitwarden-password-manager-eso/issues/5)) ([7444798](https://github.com/user-cube/bitwarden-password-manager-eso/commit/7444798c3cd2ad037cb5d3e2439d4f460b017d95))
+
 ## [1.2.1](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.2.0...v1.2.1) (2026-02-24)
 
 

@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.1.0...v1.1.1) (2026-02-24)
+
+
+### Bug Fixes
+
+* add CNAME record ([425421c](https://github.com/user-cube/bitwarden-password-manager-eso/commit/425421ccfd377cc32e1478c33b46b63aef9d9267))
+
 # [1.1.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.0.14...v1.1.0) (2026-02-24)
 
 

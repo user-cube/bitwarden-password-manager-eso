@@ -15,9 +15,9 @@ plugins:
       populateChangelog: true
     }]
 
-  # Generate artifacthub.io/changes.yaml
+  # Update Artifact Hub changelog annotation in Chart.yaml
   - ["@semantic-release/exec", {
-      prepareCmd: "mkdir -p charts/bitwarden-password-manager-eso/artifacthub.io && printf \"changes:\\n  - kind: changed\\n    description: Release ${nextRelease.version}\\n\" > charts/bitwarden-password-manager-eso/artifacthub.io/changes.yaml"
+      prepareCmd: "scripts/update-artifacthub-changes.sh charts/bitwarden-password-manager-eso/Chart.yaml ${nextRelease.version}"
     }]
 
   # Update root CHANGELOG.md

@@ -33,7 +33,7 @@ ExternalSecret → Kubernetes Secret
 ## Installation
 
 ```bash
-helm repo add bitwarden-password-manager-eso https://user-cube.github.io/bitwarden-password-manager-eso
+helm repo add bitwarden-password-manager-eso https://bitwarden-password-manager-eso.ruicoelho.dev
 helm repo update
 ```
 

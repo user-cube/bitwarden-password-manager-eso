@@ -3,6 +3,16 @@ entries:
   bitwarden-password-manager-eso:
   - apiVersion: v2
     appVersion: 2026.1.0
+    created: "2026-02-24T12:42:32.969600415Z"
+    description: Bitwarden CLI + ClusterSecretStore for External Secrets Operator
+    digest: ad2e31fa88ca0bede540acbda39a43f51249cd10800689fd874f7d0409728794
+    name: bitwarden-password-manager-eso
+    type: application
+    urls:
+    - https://github.com/user-cube/bitwarden-password-manager-eso/releases/download/bitwarden-password-manager-eso-1.0.3/bitwarden-password-manager-eso-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    appVersion: 2026.1.0
     created: "2026-02-24T03:38:23.041254353Z"
     description: Bitwarden CLI + ClusterSecretStore for External Secrets Operator
     digest: 17e16b696e5e24b7eac9152e61aa50d8f09060f61d882a65f06c803f6c5c46ef
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://github.com/user-cube/bitwarden-password-manager-eso/releases/download/bitwarden-password-manager-eso-1.0.0/bitwarden-password-manager-eso-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-24T03:38:23.041266506Z"
+generated: "2026-02-24T12:42:32.969623368Z"

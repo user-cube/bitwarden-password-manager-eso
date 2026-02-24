@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.1.3...v1.2.0) (2026-02-24)
+
+
+### Features
+
+* use generic github app name ([a94efd1](https://github.com/user-cube/bitwarden-password-manager-eso/commit/a94efd1e121207ac9e5d2ecd9ec6c7ba9f2d1e6f))
+
 ## [1.1.3](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.1.2...v1.1.3) (2026-02-24)
 
 

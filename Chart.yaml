@@ -3,4 +3,4 @@ name: bitwarden-eso
 description: Bitwarden CLI + ClusterSecretStore for External Secrets Operator
 type: application
 version: 1.0.0
-appVersion: "2026.1.0"
+appVersion: 2026.1.0

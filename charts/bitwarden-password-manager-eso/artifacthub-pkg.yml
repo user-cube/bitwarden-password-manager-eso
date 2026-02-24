@@ -1,15 +1,16 @@
 version: 1.0.0
 name: bitwarden-password-manager-eso
 displayName: Bitwarden Password Manager ESO
-description: Simple helmchart for bitwarden password manager connection with external secrets operator.
+description: Helm chart that bridges Bitwarden CLI with External Secrets Operator via ClusterSecretStore.
 keywords:
   - bitwarden
   - external-secrets
   - secrets
   - sops
-home: https://github.com/{{ user }}/{{ repo }}
+home: https://github.com/user-cube/bitwarden-password-manager-eso
 sources:
-  - https://github.com/{{ user }}/{{ repo }}
+  - https://github.com/user-cube/bitwarden-password-manager-eso
+license: Apache-2.0
 maintainers:
   - name: Rui Coelho
     email: artifacts@ruicoelho.dev
@@ -24,4 +25,3 @@ annotations:
     - kind: added
       description: ServiceAccount and SecurityContext support.
   artifacthub.io/category: security
-  artifacthub.io/operator: "true"

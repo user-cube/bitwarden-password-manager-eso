@@ -1,0 +1,20 @@
+# {{ template "chart.name" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+## Installing the Chart
+
+```bash
+helm repo add bitwarden-password-manager-eso https://user-cube.github.io/bitwarden-password-manager-eso
+helm repo update
+helm install bitwarden-password-manager-eso bitwarden-password-manager-eso/{{ template "chart.name" . }} -f values.yaml
+```
+
+## Values
+
+{{ template "chart.valuesSection" . }}
+
+----------------------------------------------
+{{ template "helm-docs.versionFooter" . }}

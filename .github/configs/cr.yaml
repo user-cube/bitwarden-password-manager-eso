@@ -4,9 +4,8 @@ index-path: "./index.yaml"
 # PGP signing
 sign: false
 
-# Enable automatic generation of release notes using GitHubs release notes generator.
-# see: https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
-generate-release-notes: true
+# Release notes are provided via CHANGELOG.md by the helm-releaser workflow.
+generate-release-notes: false
 
 git-repo: bitwarden-password-manager-eso
 owner: user-cube

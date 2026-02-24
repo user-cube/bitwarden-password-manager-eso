@@ -40,7 +40,8 @@ helm repo update
 For SOPS-encrypted credentials (recommended):
 
 ```bash
-helm secrets install bitwarden-password-manager-eso bitwarden-password-manager-eso/bitwarden-password-manager-eso -f values.yaml -f secrets.enc.yaml
+helm secrets install bitwarden-password-manager-eso bitwarden-password-manager-eso/bitwarden-password-manager-eso \
+  -f values.yaml -f secrets.enc.yaml
 ```
 
 ## Default ClusterSecretStores

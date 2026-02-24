@@ -1,0 +1,21 @@
+name: Helm Docs
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  docs:
+    name: Update chart docs
+    uses: user-cube/reusable-cicd/.github/workflows/helm-docs.yml@main
+    with:
+      chart_search_root: "."
+      values_file: "values.yaml"
+      output_file: "README.md"
+      git_push: true
+      git_commit_message: "docs: update helm-docs"

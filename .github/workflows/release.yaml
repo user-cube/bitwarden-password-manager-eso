@@ -28,5 +28,7 @@ jobs:
     uses: user-cube/reusable-cicd/.github/workflows/helm-releaser.yml@main
     with:
       charts_dir: "."
+      config: ".github/configs/cr.yaml"
     secrets:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
+      DEVOPS_BUDDY_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}

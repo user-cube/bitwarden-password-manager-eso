@@ -7,3 +7,12 @@ sign: false
 # Enable automatic generation of release notes using GitHubs release notes generator.
 # see: https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
 generate-release-notes: true
+
+git-repo: bitwarden-password-manager-eso
+owner: user-cube
+token: $GITHUB_TOKEN
+git-base-url: https://api.github.com/
+git-upload-url: https://uploads.github.com/
+package-path: .cr-release-packages
+pages-branch: gh-pages
+skip-existing: false

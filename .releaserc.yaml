@@ -12,6 +12,8 @@ plugins:
     - assets:
         - "charts/bitwarden-password-manager-eso/Chart.yaml"
         - "charts/bitwarden-password-manager-eso/CHANGELOG.md"
+        - "charts/bitwarden-password-manager-eso/README.md"
         - "CHANGELOG.md"
+        - "README.md"
       message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
   - "@semantic-release/github"

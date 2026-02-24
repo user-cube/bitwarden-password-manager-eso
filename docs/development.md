@@ -63,7 +63,7 @@ To list this chart on [Artifact Hub](https://artifacthub.io/):
     - Click **Control Panel** > **Add Repository**.
     - Kind: **Helm charts**.
     - Name: `bitwarden-password-manager-eso`.
-    - URL: `https://<your-username>.github.io/bitwarden-password-manager-eso/`.
+    - URL: `https://bitwarden-password-manager-eso.ruicoelho.dev/`.
 3.  **Metadata**: Branding, maintainer info, and categories are managed via the `artifacthub-pkg.yml` file in the root of the repository.
 
 ### Updating Changes

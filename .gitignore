@@ -3,6 +3,7 @@ site/
 
 # SOPS
 secrets.dec.yaml
+secrets.dec.yaml.enc
 
 # Helm
 *.tgz

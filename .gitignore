@@ -11,4 +11,4 @@ secrets.dec.yaml
 .DS_Store
 
 # Python
-venv/*
+venv/

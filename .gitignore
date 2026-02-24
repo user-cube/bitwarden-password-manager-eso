@@ -12,3 +12,7 @@ secrets.dec.yaml
 
 # Python
 venv/
+
+# Editors
+.idea/
+.vscode/

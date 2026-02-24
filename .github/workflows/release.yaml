@@ -17,6 +17,7 @@ jobs:
       node-version: "20"
       extra-plugins: |
         semantic-release-helm
+        @semantic-release/exec
     secrets:
       DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
       DEVOPS_BUDDY_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}

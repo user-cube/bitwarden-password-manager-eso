@@ -15,13 +15,4 @@ maintainers:
   - name: Rui Coelho
     email: artifacts@ruicoelho.dev
 annotations:
-  artifacthub.io/changes: |
-    - kind: added
-      description: Initial release with Bitwarden CLI bridge.
-    - kind: added
-      description: Support for SOPS encrypted secrets.
-    - kind: added
-      description: Periodic sync CronJob.
-    - kind: added
-      description: ServiceAccount and SecurityContext support.
   artifacthub.io/category: security

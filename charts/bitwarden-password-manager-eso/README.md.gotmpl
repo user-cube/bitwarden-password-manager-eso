@@ -7,7 +7,7 @@
 ## Installing the Chart
 
 ```bash
-helm repo add bitwarden-password-manager-eso https://bitwarden-password-manager-eso.ruicoelho.dev
+helm repo add bitwarden-password-manager-eso https://user-cube.github.io/bitwarden-password-manager-eso
 helm repo update
 helm install bitwarden-password-manager-eso bitwarden-password-manager-eso/{{ template "chart.name" . }} -f values.yaml
 ```
@@ -22,7 +22,7 @@ helm secrets install bitwarden-password-manager-eso \
   -f values.yaml -f secrets.enc.yaml
 ```
 
-See the [SOPS secrets guide](https://bitwarden-password-manager-eso.ruicoelho.dev/docs/sops-secrets/) for full instructions.
+See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-manager-eso/docs/sops-secrets/) for full instructions.
 
 {{ template "chart.valuesSection" . }}
 

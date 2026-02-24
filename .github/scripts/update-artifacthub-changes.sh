@@ -1,86 +1,97 @@
 #!/usr/bin/env bash
-# Parses semantic-release notes (passed via stdin or $1) and writes
-# the artifacthub.io/changes annotation into Chart.yaml.
+# Reads the latest entry from CHANGELOG.md and writes the
+# artifacthub.io/changes annotation into Chart.yaml.
 #
-# Usage: echo "$NOTES" | update-artifacthub-changes.sh <chart-yaml-path>
+# Usage: update-artifacthub-changes.sh <chart-yaml-path> <changelog-path>
 
 set -euo pipefail
 
 CHART_YAML="${1:-charts/bitwarden-password-manager-eso/Chart.yaml}"
-NOTES="${RELEASE_NOTES:-}"
+CHANGELOG="${2:-CHANGELOG.md}"
 
-declare -a changes=()
-
-# Map conventional commit section headings to ArtifactHub change kinds
 map_kind() {
-  local section="$1"
-  case "$section" in
-    "Bug Fixes")      echo "fixed" ;;
-    "Features")       echo "added" ;;
-    "Performance"*)   echo "changed" ;;
-    "Reverts")        echo "changed" ;;
-    "Security"*)      echo "security" ;;
-    "Deprecated"*)    echo "deprecated" ;;
-    "Removed"*)       echo "removed" ;;
-    *)                echo "changed" ;;
+  case "$1" in
+    "Bug Fixes")    echo "fixed" ;;
+    "Features")     echo "added" ;;
+    "Performance"*) echo "changed" ;;
+    "Reverts")      echo "changed" ;;
+    "Security"*)    echo "security" ;;
+    "Deprecated"*)  echo "deprecated" ;;
+    "Removed"*)     echo "removed" ;;
+    *)              echo "changed" ;;
   esac
 }
 
+declare -a changes=()
 current_kind=""
+in_first_entry=0
 
 while IFS= read -r line; do
-  # Detect section headings like "### Bug Fixes" or "### Features"
+  # Start capturing at the first version heading
+  if [[ "$line" =~ ^##[[:space:]] && $in_first_entry -eq 0 ]]; then
+    in_first_entry=1
+    continue
+  fi
+
+  # Stop at the second version heading
+  if [[ "$line" =~ ^##[[:space:]] && $in_first_entry -eq 1 ]]; then
+    break
+  fi
+
+  # Detect subsection like "### Bug Fixes"
   if [[ "$line" =~ ^###[[:space:]](.+)$ ]]; then
     current_kind=$(map_kind "${BASH_REMATCH[1]}")
     continue
   fi
 
-  # Detect bullet entries like "* some description ([abc1234](...))"
+  # Detect bullet entries
   if [[ -n "$current_kind" && "$line" =~ ^\*[[:space:]](.+) ]]; then
     entry="${BASH_REMATCH[1]}"
-    # Strip markdown links: keep only the description before " ([..."
+    # Strip markdown links: "description ([abc](url))" -> "description"
     description=$(echo "$entry" | sed 's/ (\[.*//g' | sed 's/\*\*//g' | xargs)
     if [[ -n "$description" ]]; then
       changes+=("  - kind: ${current_kind}"$'\n'"    description: \"${description}\"")
     fi
   fi
-done <<< "$NOTES"
+done < "$CHANGELOG"
 
 if [[ ${#changes[@]} -eq 0 ]]; then
   echo "No changes detected, skipping artifacthub.io/changes update."
   exit 0
 fi
 
-# Build the annotation value
 changes_yaml=$(printf '%s\n' "${changes[@]}")
 
-# Use awk to replace or insert the annotation block in Chart.yaml
-python3 - "$CHART_YAML" "$changes_yaml" <<'PYEOF'
+python3 - "$CHART_YAML" <<PYEOF
 import sys
 import re
 
 chart_path = sys.argv[1]
-changes_yaml = sys.argv[2]
+changes_yaml = """$changes_yaml"""
 
 with open(chart_path, 'r') as f:
     content = f.read()
 
-annotation_block = f'annotations:\n  artifacthub.io/changes: |\n'
+new_annotation = '  artifacthub.io/changes: |\n'
 for line in changes_yaml.splitlines():
-    annotation_block += f'    {line}\n'
+    new_annotation += f'    {line}\n'
 
-# If annotations section exists, replace the changes entry within it
-if re.search(r'^annotations:', content, re.MULTILINE):
-    # Replace existing artifacthub.io/changes value
+if re.search(r'^\s*artifacthub\.io/changes:', content, re.MULTILINE):
     content = re.sub(
-        r'  artifacthub\.io/changes: \|.*?(?=\n\S|\n  \S|\Z)',
-        f'  artifacthub.io/changes: |\n' + '\n'.join(f'    {l}' for l in changes_yaml.splitlines()),
+        r'  artifacthub\.io/changes: \|.*?(?=\n  \S|\nappVersion|\nversion|\Z)',
+        new_annotation.rstrip('\n'),
         content,
         flags=re.DOTALL
     )
+elif re.search(r'^annotations:', content, re.MULTILINE):
+    content = re.sub(
+        r'^(annotations:)',
+        r'\1\n' + new_annotation.rstrip('\n'),
+        content,
+        flags=re.MULTILINE
+    )
 else:
-    # Append annotations section
-    content = content.rstrip('\n') + '\n' + annotation_block
+    content = content.rstrip('\n') + '\nannotations:\n' + new_annotation
 
 with open(chart_path, 'w') as f:
     f.write(content)

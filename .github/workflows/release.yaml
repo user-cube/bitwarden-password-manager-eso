@@ -1,0 +1,34 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Semantic Release
+    uses: user-cube/reusable-cicd/.github/workflows/semantic-release_simple-release.yml@main
+    with:
+      node-version: "20"
+      extra-plugins: |
+        semantic-release-helm
+    secrets:
+      DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
+      DEVOPS_BUDDY_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}
+
+  publish:
+    name: Publish Helm Chart
+    needs: release
+    # Only publish if the release job successfully published a new version
+    if: needs.release.outputs.new-release == 'true'
+    uses: user-cube/reusable-cicd/.github/workflows/helm-releaser.yml@main
+    with:
+      charts_dir: "."
+      config: ".github/configs/cr.yaml"
+    secrets:
+      DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
+      DEVOPS_BUDDY_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}

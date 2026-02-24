@@ -1,0 +1,10 @@
+site_name: Bitwarden Password Manager ESO
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - Configuration & Security: configuration.md
+  - SOPS Secrets: sops-secrets.md
+  - Development: development.md

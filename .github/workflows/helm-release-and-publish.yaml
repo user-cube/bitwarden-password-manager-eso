@@ -1,5 +1,4 @@
-# .github/workflows/release.yml
-name: Release
+name: Release & Publish Helm
 
 on:
   push:
@@ -29,6 +28,19 @@ jobs:
         curl -sSLo /tmp/helm-docs.tar.gz "https://github.com/norwoodj/helm-docs/releases/download/${version}/helm-docs_${version#v}_Linux_x86_64.tar.gz"
         tar -xzf /tmp/helm-docs.tar.gz -C /tmp helm-docs
         install -m 755 /tmp/helm-docs /usr/local/bin/helm-docs
+    secrets:
+      DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
+      DEVOPS_BUDDY_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}
+
+  publish:
+    name: Publish Helm Chart
+    needs: release
+    if: needs.release.outputs.new-release == 'true'
+    uses: user-cube/reusable-cicd/.github/workflows/helm-releaser.yml@main
+    with:
+      charts_dir: charts
+      config: .github/configs/cr.yaml
+      push_oci: true
     secrets:
       DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
       DEVOPS_BUDDY_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}

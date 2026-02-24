@@ -6,6 +6,11 @@ on:
       - main
       - master
   workflow_dispatch:
+    inputs:
+      docs_only:
+        description: 'Run only the docs job (build and publish MkDocs to gh-pages)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -17,7 +22,7 @@ concurrency:
 
 jobs:
   release:
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.docs_only != 'true')
     name: Semantic Release
     uses: user-cube/reusable-cicd/.github/workflows/semantic-release_simple-release.yml@main
     with:
@@ -37,7 +42,7 @@ jobs:
   publish:
     name: Publish Helm Chart
     needs: release
-    if: needs.release.outputs.new-release == 'true' && github.event_name == 'push'
+    if: needs.release.outputs.new-release == 'true'
     uses: user-cube/reusable-cicd/.github/workflows/helm-releaser.yml@main
     with:
       charts_dir: charts
@@ -50,7 +55,19 @@ jobs:
   docs:
     name: Build and Publish Docs
     needs: [release, publish]
-    if: needs.release.outputs.new-release == 'true' || github.event_name == 'workflow_dispatch'
+    if: needs.release.outputs.new-release == 'true'
+    uses: user-cube/reusable-cicd/.github/workflows/mkdocs-helm_deploy.yml@main
+    with:
+      python-version: "3.x"
+      docs-subdir: "docs"
+      pages-branch: "gh-pages"
+    secrets:
+      GITHUB_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
+      GITHUB_APP_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}
+
+  docs-only:
+    name: Build and Publish Docs (manual)
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.docs_only == 'true'
     uses: user-cube/reusable-cicd/.github/workflows/mkdocs-helm_deploy.yml@main
     with:
       python-version: "3.x"

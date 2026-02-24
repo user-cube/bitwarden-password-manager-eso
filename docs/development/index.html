@@ -646,13 +646,15 @@
 <pre><code class="language-text">feat!: overhaul the secret store configuration
 </code></pre>
 <h2 id="release-workflow">Release Workflow</h2>
-<p>When a commit is pushed to the <code>main</code> or <code>master</code> branch, a GitHub Action is triggered that utilizes a reusable workflow from <code>user-cube/reusable-cicd</code>.</p>
-<p>The workflow will:
+<p>When a commit is pushed to the <code>main</code> or <code>master</code> branch, a GitHub Action is triggered that utilizes reusable workflows from <code>user-cube/reusable-cicd</code>.</p>
+<p>The release pipeline will:
 1.  Analyze the commits using Conventional Commits.
 2.  Update the <code>version</code> in <code>Chart.yaml</code> (via <code>semantic-release-helm</code>).
-3.  Generate/update <code>CHANGELOG.md</code>.
+3.  Generate/update the chart <code>CHANGELOG.md</code> and the root <code>CHANGELOG.md</code>.
 4.  Commit those changes back to the repository using a dedicated GitHub App identity.
-5.  Create a GitHub Tag and Release.</p>
+5.  Create a GitHub Tag and Release.
+6.  Package and publish the Helm chart to the <code>gh-pages</code> branch and to GHCR (via the <code>helm-releaser</code> reusable workflow).
+7.  Rebuild and publish the MkDocs documentation into <code>gh-pages/docs</code> (via the <code>helm-docs-publish</code> reusable workflow) whenever a new release is created.</p>
 <h2 id="artifact-hub-integration">Artifact Hub Integration</h2>
 <p>To list this chart on <a href="https://artifacthub.io/">Artifact Hub</a>:</p>
 <ol>

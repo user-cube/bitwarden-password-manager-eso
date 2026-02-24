@@ -2,20 +2,33 @@ branches:
   - main
   - master
 
+tagFormat: v${version}
+
 plugins:
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/release-notes-generator"
+
+  - ["semantic-release-helm", {
+      chartPath: "charts/bitwarden-password-manager-eso",
+      onlyUpdateVersion: true,
+      populateChangelog: true
+    }]
+
   - ["@semantic-release/changelog", { changelogFile: "CHANGELOG.md" }]
-  - ["@semantic-release/changelog", { changelogFile: "charts/bitwarden-password-manager-eso/CHANGELOG.md" }]
-  - ["semantic-release-helm", { chartPath: "charts/bitwarden-password-manager-eso", onlyUpdateVersion: true, populateChangelog: true }]
-  - - "@semantic-release/exec"
-    - prepareCmd: "helm-docs --chart-search-root=charts/ --output-file=README.md"
-  - - "@semantic-release/git"
-    - assets:
-        - "charts/bitwarden-password-manager-eso/Chart.yaml"
-        - "charts/bitwarden-password-manager-eso/CHANGELOG.md"
-        - "charts/bitwarden-password-manager-eso/README.md"
-        - "CHANGELOG.md"
-        - "README.md"
+
+  - ["@semantic-release/exec", {
+      prepareCmd: "helm-docs --chart-search-root=charts/ --output-file=README.md"
+    }]
+
+  - ["@semantic-release/git", {
+      assets: [
+        "charts/bitwarden-password-manager-eso/Chart.yaml",
+        "charts/bitwarden-password-manager-eso/CHANGELOG.md",
+        "charts/bitwarden-password-manager-eso/README.md",
+        "CHANGELOG.md",
+        "README.md"
+      ],
       message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    }]
+
   - "@semantic-release/github"

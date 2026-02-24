@@ -7,15 +7,7 @@ secrets.dec.yaml
 # Helm
 *.tgz
 
-# OS
-.DS_Store
-
-# Python
-venv/
-
 # Editors
-.idea/
-.vscode/
 *.swp
 *.bak
 *.tmp
@@ -24,3 +16,11 @@ venv/
 .project
 .settings/
 .cursor/
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Python
+venv/

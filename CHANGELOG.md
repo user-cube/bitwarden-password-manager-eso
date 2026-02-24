@@ -1,3 +1,12 @@
+## [1.0.4](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.0.3...v1.0.4) (2026-02-24)
+
+
+### Bug Fixes
+
+* update release method ([cffc370](https://github.com/user-cube/bitwarden-password-manager-eso/commit/cffc370eddb1afdf9356bfd6dbeccfdaebb80a0a))
+* update release method ([92cdc1a](https://github.com/user-cube/bitwarden-password-manager-eso/commit/92cdc1ae465e66bc48eb3faf7e5b6023de4dbb77))
+* update release method ([72c394e](https://github.com/user-cube/bitwarden-password-manager-eso/commit/72c394ed0dc99e982a13cc02694cd3b2e7b68161))
+
 ## [1.0.3](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.0.2...v1.0.3) (2026-02-24)
 
 

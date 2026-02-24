@@ -2,9 +2,13 @@ apiVersion: v2
 name: bitwarden-password-manager-eso
 description: Bitwarden CLI + ClusterSecretStore for External Secrets Operator
 type: application
-version: 1.0.3
+version: 1.0.4
 appVersion: 2026.1.0
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: Push chart to OCI registry
+      description: "update release method"
+    - kind: fixed
+      description: "update release method"
+    - kind: fixed
+      description: "update release method"

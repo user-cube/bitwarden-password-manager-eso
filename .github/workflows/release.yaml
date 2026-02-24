@@ -28,7 +28,7 @@ jobs:
     if: needs.release.outputs.new-release == 'true'
     uses: user-cube/reusable-cicd/.github/workflows/helm-releaser.yml@main
     with:
-      charts_dir: "."
+      charts_dir: "./charts/bitwarden-password-manager-eso"
       config: ".github/configs/cr.yaml"
     secrets:
       DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}

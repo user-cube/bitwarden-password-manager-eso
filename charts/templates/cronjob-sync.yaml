@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "bitwarden-eso.fullname" . }}-sync
+  name: {{ include "bitwarden-password-manager-eso.fullname" . }}-sync
   labels:
-    {{- include "bitwarden-eso.labels" . | nindent 4 }}
+    {{- include "bitwarden-password-manager-eso.labels" . | nindent 4 }}
 spec:
   schedule: {{ .Values.sync.schedule | quote }}
   concurrencyPolicy: Forbid
@@ -13,9 +13,9 @@ spec:
       template:
         metadata:
           labels:
-            {{- include "bitwarden-eso.labels" . | nindent 12 }}
+            {{- include "bitwarden-password-manager-eso.labels" . | nindent 12 }}
         spec:
-          serviceAccountName: {{ include "bitwarden-eso.serviceAccountName" . }}
+          serviceAccountName: {{ include "bitwarden-password-manager-eso.serviceAccountName" . }}
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
           containers:
@@ -27,7 +27,7 @@ spec:
             - curl
             - -X
             - POST
-            - {{ printf "http://%s.%s.svc.cluster.local:8087/sync" (include "bitwarden-eso.fullname" .) .Release.Namespace | quote }}
+            - {{ printf "http://%s.%s.svc.cluster.local:8087/sync" (include "bitwarden-password-manager-eso.fullname" .) .Release.Namespace | quote }}
             {{- with .Values.sync.resources }}
             resources:
               {{- toYaml . | nindent 14 }}

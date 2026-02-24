@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "bitwarden-eso.fullname" . }}
+  name: {{ include "bitwarden-password-manager-eso.fullname" . }}
   labels:
-    {{- include "bitwarden-eso.labels" . | nindent 4 }}
+    {{- include "bitwarden-password-manager-eso.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "bitwarden-eso.selectorLabels" . | nindent 6 }}
+      {{- include "bitwarden-password-manager-eso.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "bitwarden-eso.labels" . | nindent 8 }}
+        {{- include "bitwarden-password-manager-eso.labels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "bitwarden-eso.serviceAccountName" . }}
+      serviceAccountName: {{ include "bitwarden-password-manager-eso.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -29,7 +29,7 @@ spec:
               protocol: TCP
           envFrom:
             - secretRef:
-                name: {{ include "bitwarden-eso.fullname" . }}-credentials
+                name: {{ include "bitwarden-password-manager-eso.fullname" . }}-credentials
           livenessProbe:
             tcpSocket:
               port: http

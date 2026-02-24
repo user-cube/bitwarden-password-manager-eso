@@ -84,9 +84,9 @@ helm plugin install https://github.com/jkroepke/helm-secrets
 
 | Action | Command |
 | :--- | :--- |
-| **Install** | `helm secrets install bitwarden-eso . -f values.yaml -f secrets.enc.yaml` |
-| **Upgrade** | `helm secrets upgrade bitwarden-eso . -f values.yaml -f secrets.enc.yaml` |
-| **Template** | `helm secrets template bitwarden-eso . -f values.yaml -f secrets.enc.yaml` |
+| **Install** | `helm secrets install bitwarden-password-manager-eso . -f values.yaml -f secrets.enc.yaml` |
+| **Upgrade** | `helm secrets upgrade bitwarden-password-manager-eso . -f values.yaml -f secrets.enc.yaml` |
+| **Template** | `helm secrets template bitwarden-password-manager-eso . -f values.yaml -f secrets.enc.yaml` |
 | **Edit** | `helm secrets edit secrets.enc.yaml` (Decrypts, opens in editor, re-encrypts on save) |
 | **View** | `helm secrets view secrets.enc.yaml` (Shows decrypted content in stdout) |
 
@@ -95,7 +95,7 @@ helm plugin install https://github.com/jkroepke/helm-secrets
 If you cannot use the plugin, you can decrypt the file on the fly:
 
 ```bash
-sops exec-file secrets.enc.yaml 'helm install bitwarden-eso . -f values.yaml -f {}'
+sops exec-file secrets.enc.yaml 'helm install bitwarden-password-manager-eso . -f values.yaml -f {}'
 ```
 
 ## Security Best Practices

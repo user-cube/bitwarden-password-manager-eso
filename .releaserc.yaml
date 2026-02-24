@@ -14,6 +14,11 @@ plugins:
       populateChangelog: true
     }]
 
+  # ➜ Gera artifacthub.io/changes.yaml
+  - ["@semantic-release/exec", {
+      prepareCmd: "printf \"changes:\\n  - kind: changed\\n    description: Release ${nextRelease.version}\\n\" > charts/bitwarden-password-manager-eso/artifacthub.io/changes.yaml"
+    }]
+
   - ["@semantic-release/changelog", { changelogFile: "CHANGELOG.md" }]
 
   - ["@semantic-release/exec", {
@@ -25,6 +30,7 @@ plugins:
         "charts/bitwarden-password-manager-eso/Chart.yaml",
         "charts/bitwarden-password-manager-eso/CHANGELOG.md",
         "charts/bitwarden-password-manager-eso/README.md",
+        "charts/bitwarden-password-manager-eso/artifacthub.io/changes.yaml",
         "CHANGELOG.md",
         "README.md"
       ],

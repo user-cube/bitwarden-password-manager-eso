@@ -35,8 +35,6 @@ ExternalSecret → Kubernetes Secret
 ```bash
 helm repo add bitwarden-password-manager-eso https://user-cube.github.io/bitwarden-password-manager-eso
 helm repo update
-helm install bitwarden-password-manager-eso bitwarden-password-manager-eso/bitwarden-password-manager-eso \
-  -f values.yaml
 ```
 
 For SOPS-encrypted credentials (recommended):

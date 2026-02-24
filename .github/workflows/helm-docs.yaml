@@ -20,5 +20,5 @@ jobs:
       git_push: true
       git_commit_message: "docs: update helm-docs"
     secrets:
-      DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
-      DEVOPS_BUDDY_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}
+      GITHUB_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
+      GITHUB_APP_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}

@@ -59,7 +59,7 @@ See the [SOPS secrets guide](https://bitwarden-password-manager-eso.ruicoelho.de
 | serviceAccount.name | string | `""` |  |
 | sync.enabled | bool | `false` |  |
 | sync.image.repository | string | `"curlimages/curl"` |  |
-| sync.image.tag | string | `"8.6.0"` |  |
+| sync.image.tag | string | `"8.18.0"` |  |
 | sync.resources.limits.cpu | string | `"50m"` |  |
 | sync.resources.limits.memory | string | `"64Mi"` |  |
 | sync.resources.requests.cpu | string | `"10m"` |  |

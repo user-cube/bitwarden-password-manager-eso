@@ -8,23 +8,27 @@ plugins:
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/release-notes-generator"
 
+  # Update Chart.yaml and chart CHANGELOG
   - ["semantic-release-helm", {
       chartPath: "charts/bitwarden-password-manager-eso",
       onlyUpdateVersion: true,
       populateChangelog: true
     }]
 
-  # ➜ Gera artifacthub.io/changes.yaml
+  # Generate artifacthub.io/changes.yaml
   - ["@semantic-release/exec", {
-      prepareCmd: "printf \"changes:\\n  - kind: changed\\n    description: Release ${nextRelease.version}\\n\" > charts/bitwarden-password-manager-eso/artifacthub.io/changes.yaml"
+      prepareCmd: "mkdir -p charts/bitwarden-password-manager-eso/artifacthub.io && printf \"changes:\\n  - kind: changed\\n    description: Release ${nextRelease.version}\\n\" > charts/bitwarden-password-manager-eso/artifacthub.io/changes.yaml"
     }]
 
+  # Update root CHANGELOG.md
   - ["@semantic-release/changelog", { changelogFile: "CHANGELOG.md" }]
 
+  # Regenerate README using helm-docs
   - ["@semantic-release/exec", {
       prepareCmd: "helm-docs --chart-search-root=charts/ --output-file=README.md"
     }]
 
+  # Commit all generated files
   - ["@semantic-release/git", {
       assets: [
         "charts/bitwarden-password-manager-eso/Chart.yaml",

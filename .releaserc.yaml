@@ -2,8 +2,6 @@ branches:
   - main
   - master
 
-tagFormat: "bitwarden-password-manager-eso-${version}"  # ← formato que o chart-releaser espera
-
 plugins:
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/release-notes-generator"

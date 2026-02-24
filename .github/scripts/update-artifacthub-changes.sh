@@ -8,6 +8,7 @@ set -euo pipefail
 
 CHART_YAML="${1:-charts/bitwarden-password-manager-eso/Chart.yaml}"
 CHANGELOG="${2:-CHANGELOG.md}"
+CHANGES_FILE="$(mktemp)"
 
 map_kind() {
   case "$1" in
@@ -22,7 +23,6 @@ map_kind() {
   esac
 }
 
-declare -a changes=()
 current_kind=""
 in_first_entry=0
 
@@ -50,51 +50,69 @@ while IFS= read -r line; do
     # Strip markdown links: "description ([abc](url))" -> "description"
     description=$(echo "$entry" | sed 's/ (\[.*//g' | sed 's/\*\*//g' | xargs)
     if [[ -n "$description" ]]; then
-      changes+=("  - kind: ${current_kind}"$'\n'"    description: \"${description}\"")
+      printf '%s\t%s\n' "$current_kind" "$description" >> "$CHANGES_FILE"
     fi
   fi
 done < "$CHANGELOG"
 
-if [[ ${#changes[@]} -eq 0 ]]; then
+if [[ ! -s "$CHANGES_FILE" ]]; then
   echo "No changes detected, skipping artifacthub.io/changes update."
+  rm -f "$CHANGES_FILE"
   exit 0
 fi
 
-changes_yaml=$(printf '%s\n' "${changes[@]}")
-
-python3 - "$CHART_YAML" <<PYEOF
+python3 /dev/stdin "$CHART_YAML" "$CHANGES_FILE" << 'PYEOF'
 import sys
-import re
 
 chart_path = sys.argv[1]
-changes_yaml = """$changes_yaml"""
+changes_file = sys.argv[2]
+
+# Build the annotation lines
+lines = []
+with open(changes_file) as f:
+    for row in f:
+        row = row.rstrip('\n')
+        if '\t' not in row:
+            continue
+        kind, description = row.split('\t', 1)
+        lines.append(f'    - kind: {kind}')
+        lines.append(f'      description: "{description}"')
+
+if not lines:
+    print("No changes to write.")
+    sys.exit(0)
+
+new_block = '  artifacthub.io/changes: |\n' + '\n'.join(lines) + '\n'
 
 with open(chart_path, 'r') as f:
     content = f.read()
 
-new_annotation = '  artifacthub.io/changes: |\n'
-for line in changes_yaml.splitlines():
-    new_annotation += f'    {line}\n'
+import re
 
 if re.search(r'^\s*artifacthub\.io/changes:', content, re.MULTILINE):
+    # Replace existing annotation value
     content = re.sub(
-        r'  artifacthub\.io/changes: \|.*?(?=\n  \S|\nappVersion|\nversion|\Z)',
-        new_annotation.rstrip('\n'),
+        r'  artifacthub\.io/changes: \|.*?(?=\n  \S|\nappVersion:|\nversion:|\Z)',
+        new_block.rstrip('\n'),
         content,
         flags=re.DOTALL
     )
 elif re.search(r'^annotations:', content, re.MULTILINE):
+    # Add under existing annotations block
     content = re.sub(
-        r'^(annotations:)',
-        r'\1\n' + new_annotation.rstrip('\n'),
+        r'^(annotations:\n)',
+        r'\1' + new_block,
         content,
         flags=re.MULTILINE
     )
 else:
-    content = content.rstrip('\n') + '\nannotations:\n' + new_annotation
+    # Append new annotations section
+    content = content.rstrip('\n') + '\nannotations:\n' + new_block
 
 with open(chart_path, 'w') as f:
     f.write(content)
 
 print(f"Updated {chart_path} with artifacthub.io/changes annotation.")
 PYEOF
+
+rm -f "$CHANGES_FILE"

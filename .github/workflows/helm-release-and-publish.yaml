@@ -32,9 +32,22 @@ jobs:
       DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
       DEVOPS_BUDDY_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}
 
+  publish:
+    name: Publish Helm Chart
+    needs: release
+    if: needs.release.outputs.new-release == 'true'
+    uses: user-cube/reusable-cicd/.github/workflows/helm-releaser.yml@main
+    with:
+      charts_dir: charts
+      config: .github/configs/cr.yaml
+      push_oci: true
+    secrets:
+      DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
+      DEVOPS_BUDDY_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}
+
   docs:
     name: Build and Publish Docs
-    needs: publish
+    needs: [release, publish]
     if: needs.release.outputs.new-release == 'true'
     runs-on: ubuntu-latest
 
@@ -83,16 +96,3 @@ jobs:
 
           git commit -m "docs: update MkDocs site"
           git push origin gh-pages
-
-  publish:
-    name: Publish Helm Chart
-    needs: release
-    if: needs.release.outputs.new-release == 'true'
-    uses: user-cube/reusable-cicd/.github/workflows/helm-releaser.yml@main
-    with:
-      charts_dir: charts
-      config: .github/configs/cr.yaml
-      push_oci: true
-    secrets:
-      DEVOPS_BUDDY_APP_ID: ${{ secrets.DEVOPS_BUDDY_APP_ID }}
-      DEVOPS_BUDDY_PRIVATE_KEY: ${{ secrets.DEVOPS_BUDDY_PRIVATE_KEY }}

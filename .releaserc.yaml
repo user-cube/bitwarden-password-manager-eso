@@ -2,14 +2,16 @@ branches:
   - main
   - master
 
+tagFormat: "bitwarden-password-manager-eso-${version}"  # ← formato que o chart-releaser espera
+
 plugins:
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/release-notes-generator"
   - ["@semantic-release/changelog", { changelogFile: "CHANGELOG.md" }]
-  - ["semantic-release-helm", { chartPath: ".", onlyUpdateVersion: true }]
+  - ["semantic-release-helm", { chartPath: "charts/bitwarden-password-manager-eso", onlyUpdateVersion: true }]
   - - "@semantic-release/git"
     - assets:
-        - "charts/my-chart/Chart.yaml"
+        - "charts/bitwarden-password-manager-eso/Chart.yaml"
         - "CHANGELOG.md"
       message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
   - "@semantic-release/github"

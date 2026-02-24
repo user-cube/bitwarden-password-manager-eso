@@ -4,15 +4,4 @@ description: Bitwarden CLI + ClusterSecretStore for External Secrets Operator
 type: application
 version: 1.2.4
 appVersion: 2026.1.0
-<<<<<<< HEAD
 icon: https://user-cube.github.io/bitwarden-password-manager-eso/docs/assets/logo-64x64.png
-=======
-icon: >-
-  https://bitwarden-password-manager-eso.ruicoelho.dev/docs/assets/logo-64x64.png
-
-annotations:
-  artifacthub.io/category: security
-  artifacthub.io/changes: |
-    - kind: changed
-      description: Release 1.2.4
->>>>>>> 69a0f2038596629f32359cb2ade4da46f0076a7e

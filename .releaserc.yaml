@@ -17,7 +17,7 @@ plugins:
 
   # Update Artifact Hub changelog annotation in Chart.yaml
   - ["@semantic-release/exec", {
-      prepareCmd: "scripts/update-artifacthub-changes.sh charts/bitwarden-password-manager-eso/Chart.yaml ${nextRelease.version}"
+      prepareCmd: ".github/scripts/update-artifacthub-changes.sh charts/bitwarden-password-manager-eso/Chart.yaml ${nextRelease.version}"
     }]
 
   # Update root CHANGELOG.md

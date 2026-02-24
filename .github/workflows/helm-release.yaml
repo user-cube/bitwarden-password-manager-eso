@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - master
+    tags:
+      - 'v*'
 
 permissions:
   contents: write
@@ -17,6 +19,7 @@ concurrency:
 jobs:
   release:
     name: Semantic Release
+    if: startsWith(github.ref, 'refs/heads/')
     uses: user-cube/reusable-cicd/.github/workflows/semantic-release_simple-release.yml@main
     with:
       node-version: "20"
@@ -34,8 +37,7 @@ jobs:
 
   publish:
     name: Publish Helm Chart
-    needs: release
-    if: needs.release.outputs.new-release == 'true' || startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v')
     uses: user-cube/reusable-cicd/.github/workflows/helm-releaser.yml@main
     with:
       charts_dir: charts

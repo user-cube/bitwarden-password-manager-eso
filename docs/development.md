@@ -44,9 +44,17 @@ feat!: overhaul the secret store configuration
 
 ## Release Workflow
 
-When a commit is pushed to the `main` or `master` branch, the GitHub Action will:
-1.  Analyze the commits.
-2.  Update the `version` in `Chart.yaml`.
+When a commit is pushed to the `main` or `master` branch, a GitHub Action is triggered that utilizes a reusable workflow from `user-cube/reusable-cicd`.
+
+The workflow will:
+1.  Analyze the commits using Conventional Commits.
+2.  Update the `version` in `Chart.yaml` (via `semantic-release-helm`).
 3.  Generate/update `CHANGELOG.md`.
-4.  Commit those changes back to the repository.
+4.  Commit those changes back to the repository using a dedicated GitHub App identity.
 5.  Create a GitHub Tag and Release.
+
+### Required Secrets
+
+To function correctly, the repository must have the following secrets configured (used by the reusable workflow):
+- `DEVOPS_BUDDY_APP_ID`: The ID of the GitHub App used for automation.
+- `DEVOPS_BUDDY_PRIVATE_KEY`: The private key of the GitHub App.

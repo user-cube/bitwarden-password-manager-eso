@@ -14,4 +14,4 @@ git-base-url: https://api.github.com/
 git-upload-url: https://uploads.github.com/
 package-path: .cr-release-packages
 pages-branch: gh-pages
-skip-existing: false
+skip-existing: true

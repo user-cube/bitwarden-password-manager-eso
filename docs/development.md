@@ -53,6 +53,23 @@ The workflow will:
 4.  Commit those changes back to the repository using a dedicated GitHub App identity.
 5.  Create a GitHub Tag and Release.
 
+## Artifact Hub Integration
+
+To list this chart on [Artifact Hub](https://artifacthub.io/):
+
+1.  **Hosting**: The chart is automatically packaged and hosted on the `gh-pages` branch of this repository by the `Release Charts` workflow.
+2.  **Registration**:
+    - Go to Artifact Hub and log in.
+    - Click **Control Panel** > **Add Repository**.
+    - Kind: **Helm charts**.
+    - Name: `bitwarden-password-manager-eso`.
+    - URL: `https://<your-username>.github.io/bitwarden-password-manager-eso/`.
+3.  **Metadata**: Branding, maintainer info, and categories are managed via the `artifacthub-pkg.yml` file in the root of the repository.
+
+### Updating Changes
+
+Artifact Hub will automatically pick up changes from the `artifacthub.io/changes` annotation in `artifacthub-pkg.yml`.
+
 ### Required Secrets
 
 To function correctly, the repository must have the following secrets configured (used by the reusable workflow):

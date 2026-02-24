@@ -12,6 +12,18 @@ helm repo update
 helm install bitwarden-password-manager-eso bitwarden-password-manager-eso/{{ template "chart.name" . }} -f values.yaml
 ```
 
+### With SOPS-encrypted credentials (recommended)
+
+Encrypt your Bitwarden credentials using [SOPS](https://github.com/getsops/sops) and use [helm-secrets](https://github.com/jkroepke/helm-secrets) to deploy:
+
+```bash
+helm secrets install bitwarden-password-manager-eso \
+  bitwarden-password-manager-eso/{{ template "chart.name" . }} \
+  -f values.yaml -f secrets.enc.yaml
+```
+
+See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-manager-eso/sops-secrets/) for full instructions.
+
 {{ template "chart.valuesSection" . }}
 
 ----------------------------------------------

@@ -1,0 +1,36 @@
+{{- if .Values.sync.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "bitwarden-eso.fullname" . }}-sync
+  labels:
+    {{- include "bitwarden-eso.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.sync.schedule | quote }}
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            {{- include "bitwarden-eso.labels" . | nindent 12 }}
+        spec:
+          serviceAccountName: {{ include "bitwarden-eso.serviceAccountName" . }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          containers:
+          - name: sync
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 14 }}
+            image: "{{ .Values.sync.image.repository }}:{{ .Values.sync.image.tag }}"
+            command:
+            - curl
+            - -X
+            - POST
+            - {{ printf "http://%s.%s.svc.cluster.local:8087/sync" (include "bitwarden-eso.fullname" .) .Release.Namespace | quote }}
+            {{- with .Values.sync.resources }}
+            resources:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+          restartPolicy: OnFailure
+{{- end }}

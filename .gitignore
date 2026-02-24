@@ -1,0 +1,14 @@
+# MkDocs
+site/
+
+# SOPS
+secrets.dec.yaml
+
+# Helm
+*.tgz
+
+# OS
+.DS_Store
+
+# Python
+venv

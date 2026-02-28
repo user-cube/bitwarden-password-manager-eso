@@ -12,7 +12,7 @@ permissions:
 jobs:
   docs:
     name: Update chart docs
-    uses: user-cube/reusable-cicd/.github/workflows/helm-docs.yml@main
+    uses: AutomationDojo/reusable-cicd/.github/workflows/helm-docs.yml@main
     with:
       chart_search_root: "charts/"
       values_file: "values.yaml"

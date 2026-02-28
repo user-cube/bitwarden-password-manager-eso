@@ -44,7 +44,7 @@ feat!: overhaul the secret store configuration
 
 ## Release Workflow
 
-When a commit is pushed to the `main` or `master` branch, a GitHub Action is triggered that utilizes reusable workflows from `user-cube/reusable-cicd`.
+When a commit is pushed to the `main` or `master` branch, a GitHub Action is triggered that utilizes reusable workflows from `AutomationDojo/reusable-cicd`.
 
 The release pipeline will:
 1.  Analyze the commits using Conventional Commits.

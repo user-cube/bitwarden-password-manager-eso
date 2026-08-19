@@ -43,6 +43,12 @@ See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-mana
 | clusterSecretStores[3].name | string | `"bitwarden-notes"` |  |
 | clusterSecretStores[4].jsonPath | string | `"$.data.attachments"` |  |
 | clusterSecretStores[4].name | string | `"bitwarden-attachments"` |  |
+| clusterSecretStores[5].jsonPath | string | `"$.data.sshKey.privateKey"` |  |
+| clusterSecretStores[5].name | string | `"bitwarden-ssh-private-key"` |  |
+| clusterSecretStores[6].jsonPath | string | `"$.data.sshKey.publicKey"` |  |
+| clusterSecretStores[6].name | string | `"bitwarden-ssh-public-key"` |  |
+| clusterSecretStores[7].jsonPath | string | `"$.data.sshKey.keyFingerprint"` |  |
+| clusterSecretStores[7].name | string | `"bitwarden-ssh-fingerprint"` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/charlesthomas/bitwarden-cli"` |  |

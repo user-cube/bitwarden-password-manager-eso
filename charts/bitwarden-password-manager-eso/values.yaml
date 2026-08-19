@@ -64,6 +64,13 @@ clusterSecretStores:
     jsonPath: "$.data.notes"
   - name: bitwarden-attachments
     jsonPath: "$.data.attachments"
+  # Fields of an SSH Key item type.
+  - name: bitwarden-ssh-private-key
+    jsonPath: "$.data.sshKey.privateKey"
+  - name: bitwarden-ssh-public-key
+    jsonPath: "$.data.sshKey.publicKey"
+  - name: bitwarden-ssh-fingerprint
+    jsonPath: "$.data.sshKey.keyFingerprint"
 
 resources:
   requests:

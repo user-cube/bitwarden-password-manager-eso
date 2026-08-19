@@ -15,6 +15,9 @@ By default, the chart creates the following `ClusterSecretStore` resources:
 - `bitwarden-fields`: For fetching custom fields.
 - `bitwarden-notes`: For fetching notes.
 - `bitwarden-attachments`: For fetching attachments.
+- `bitwarden-ssh-private-key`: For fetching the private key of an SSH Key item.
+- `bitwarden-ssh-public-key`: For fetching the public key of an SSH Key item.
+- `bitwarden-ssh-fingerprint`: For fetching the fingerprint of an SSH Key item.
 
 ## Creating an ExternalSecret
 

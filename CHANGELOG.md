@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.2.5...v1.3.0) (2026-08-19)
+
+
+### Features
+
+* add support for ssh keys ([#10](https://github.com/user-cube/bitwarden-password-manager-eso/issues/10)) ([e5068f4](https://github.com/user-cube/bitwarden-password-manager-eso/commit/e5068f48ea9b4b4c346511324d12cd99d5a8e967))
+
 ## [1.2.5](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.2.4...v1.2.5) (2026-02-24)
 
 

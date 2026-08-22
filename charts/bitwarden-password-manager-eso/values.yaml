@@ -5,6 +5,16 @@ image:
   pullPolicy: IfNotPresent
   tag: ""
 
+# Override the image's own ENTRYPOINT/CMD. Empty by default (uses the
+# image's built-in entrypoint.sh unchanged). Needed e.g. to add
+# `--disable-origin-protection` to the final `bw serve` call -- the
+# image's entrypoint.sh has that flag hardcoded as a comment with no env
+# var to toggle it, and recent CLI versions reject requests whose Host
+# header isn't localhost (as any request routed through a Kubernetes
+# Service will be), so `bw serve` alone 403s External Secrets Operator.
+command: []
+args: []
+
 nameOverride: ""
 fullnameOverride: ""
 

@@ -29,6 +29,7 @@ See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-mana
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
+| args | list | `[]` |  |
 | bitwarden.clientId | string | `""` |  |
 | bitwarden.clientSecret | string | `""` |  |
 | bitwarden.host | string | `"https://vault.bitwarden.com"` |  |
@@ -50,6 +51,7 @@ See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-mana
 | clusterSecretStores[6].name | string | `"bitwarden-ssh-public-key"` |  |
 | clusterSecretStores[7].jsonPath | string | `"$.data.sshKey.keyFingerprint"` |  |
 | clusterSecretStores[7].name | string | `"bitwarden-ssh-fingerprint"` |  |
+| command | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/charlesthomas/bitwarden-cli"` |  |

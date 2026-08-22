@@ -78,3 +78,8 @@ resources:
     memory: 128Mi
   limits:
     memory: 256Mi
+
+# Applied to both the Deployment and the sync CronJob.
+nodeSelector: {}
+tolerations: []
+affinity: {}

@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.4.0...v1.5.0) (2026-08-22)
+
+
+### Features
+
+* allow overriding the container command/args ([#12](https://github.com/user-cube/bitwarden-password-manager-eso/issues/12)) ([8bf0157](https://github.com/user-cube/bitwarden-password-manager-eso/commit/8bf0157797345efef08a5c5b6c2dbaa09e64d992))
+
 # [1.4.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.3.0...v1.4.0) (2026-08-22)
 
 

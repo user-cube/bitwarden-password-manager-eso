@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.3.0...v1.4.0) (2026-08-22)
+
+
+### Features
+
+* add nodeSelector/tolerations/affinity to Deployment and CronJob ([#11](https://github.com/user-cube/bitwarden-password-manager-eso/issues/11)) ([3f5fb1f](https://github.com/user-cube/bitwarden-password-manager-eso/commit/3f5fb1f886b7d629202693fefeab6f26469d5842))
+
 # [1.3.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.2.5...v1.3.0) (2026-08-19)
 
 

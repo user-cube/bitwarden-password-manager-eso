@@ -13,6 +13,12 @@ spec:
     metadata:
       labels:
         {{- include "bitwarden-password-manager-eso.labels" . | nindent 8 }}
+        app.kubernetes.io/component: server
+      {{- if not .Values.bitwarden.existingSecret }}
+      annotations:
+        # Restart on credential changes; a running bw serve keeps its session.
+        checksum/credentials: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+      {{- end }}
     spec:
       serviceAccountName: {{ include "bitwarden-password-manager-eso.serviceAccountName" . }}
       securityContext:
@@ -44,7 +50,7 @@ spec:
               protocol: TCP
           envFrom:
             - secretRef:
-                name: {{ include "bitwarden-password-manager-eso.fullname" . }}-credentials
+                name: {{ include "bitwarden-password-manager-eso.credentialsSecretName" . }}
           livenessProbe:
             tcpSocket:
               port: http

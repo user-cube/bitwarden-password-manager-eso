@@ -55,7 +55,7 @@ See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-mana
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/charlesthomas/bitwarden-cli"` |  |
-| image.tag | string | `""` |  |
+| image.tag | string | `"2026.7.0"` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |

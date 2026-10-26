@@ -398,6 +398,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#network-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network policy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#existing-credentials-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Existing credentials Secret
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -575,6 +597,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#network-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network policy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#existing-credentials-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Existing credentials Secret
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -643,6 +687,21 @@ securityContext:
 </code></pre>
 <p>Set it to <code>false</code> to run the image's own <code>entrypoint.sh</code> unchanged. If you set <code>command</code> or <code>args</code>, they take precedence and this option is ignored.</p>
 <p>Only the Service exposes <code>bw serve</code>; restrict who can reach it (for example with a NetworkPolicy that allows only the External Secrets Operator namespace).</p>
+<h2 id="network-policy">Network policy</h2>
+<p><code>bw serve</code> returns the unlocked vault to anyone who can reach the Service, without authentication. Enable the bundled NetworkPolicy so only External Secrets Operator (and the sync CronJob) can reach it:</p>
+<pre><code class="language-yaml">networkPolicy:
+  enabled: true
+  allowedNamespaces:
+    - external-secrets # namespace where ESO runs
+  extraFrom: []        # extra NetworkPolicyPeer entries
+</code></pre>
+<p>It only restricts ingress; egress to your Bitwarden server is untouched. Your CNI must enforce NetworkPolicies.</p>
+<h2 id="existing-credentials-secret">Existing credentials Secret</h2>
+<p>Instead of putting credentials in values (with SOPS), point the chart at a Secret you manage yourself (sealed-secrets, a bootstrap ExternalSecret, Vault, ...):</p>
+<pre><code class="language-yaml">bitwarden:
+  existingSecret: bitwarden-credentials
+</code></pre>
+<p>The Secret must contain <code>BW_HOST</code>, <code>BW_USER</code>, <code>BW_PASSWORD</code> and optionally <code>BW_CLIENTID</code>/<code>BW_CLIENTSECRET</code>. With the chart-managed Secret, the Deployment restarts automatically when credentials change; with <code>existingSecret</code> it does not, so use a tool such as Reloader.</p>
 
 
 

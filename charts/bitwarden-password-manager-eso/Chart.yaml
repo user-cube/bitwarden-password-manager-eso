@@ -3,7 +3,7 @@ name: bitwarden-password-manager-eso
 description: Bitwarden CLI + ClusterSecretStore for External Secrets Operator
 type: application
 version: 1.5.2
-appVersion: 2026.1.0
+appVersion: 2026.10.0
 icon: >-
   https://user-cube.github.io/bitwarden-password-manager-eso/docs/assets/logo-64x64.png
 annotations:

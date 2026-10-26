@@ -58,3 +58,22 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+{{/*
+Startup script used when bwServe.disableOriginProtection is true: the image's
+entrypoint.sh verbatim, plus --disable-origin-protection on `bw serve`.
+*/}}
+{{- define "bitwarden-password-manager-eso.serveScript" -}}
+set -e
+bw config server "$BW_HOST"
+if [ -n "$BW_CLIENTID" ] && [ -n "$BW_CLIENTSECRET" ]; then
+  echo "Using apikey to log in"
+  bw login --apikey --raw
+  export BW_SESSION=$(bw unlock --passwordenv BW_PASSWORD --raw)
+else
+  echo "Using username and password to log in"
+  export BW_SESSION=$(bw login "$BW_USER" --passwordenv BW_PASSWORD --raw)
+fi
+bw unlock --check
+echo 'Running `bw serve` on port 8087'
+bw serve --hostname all --disable-origin-protection
+{{- end }}

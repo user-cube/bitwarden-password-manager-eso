@@ -12,7 +12,8 @@ By default, the chart creates the following `ClusterSecretStore` resources:
 
 - `bitwarden-login`: For fetching usernames.
 - `bitwarden-password`: For fetching passwords.
-- `bitwarden-fields`: For fetching custom fields.
+- `bitwarden-fields`: For fetching custom fields (ESO keeps only the first element of an array result, so this returns just the first field).
+- `bitwarden-field`: For fetching one custom field by name (see below).
 - `bitwarden-notes`: For fetching notes.
 - `bitwarden-attachments`: For fetching attachments.
 - `bitwarden-ssh-private-key`: For fetching the private key of an SSH Key item.
@@ -92,4 +93,27 @@ You can also trigger a sync manually at any time by running a curl command from 
 ```bash
 kubectl run curl --image=curlimages/curl -i --tty --rm -- \
   curl -X POST http://bitwarden-password-manager-eso.default.svc.cluster.local:8087/sync
+```
+
+### Example: Fetching one custom field by name
+
+Use the `bitwarden-field` store with `remoteRef.property` set to the field name:
+
+```yaml
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: my-app-api-token
+spec:
+  refreshInterval: "1h"
+  secretStoreRef:
+    name: bitwarden-field
+    kind: ClusterSecretStore
+  target:
+    name: my-app-api-token
+  data:
+    - secretKey: token
+      remoteRef:
+        key: "your-bitwarden-item-uuid"
+        property: "api-token" # custom field name
 ```

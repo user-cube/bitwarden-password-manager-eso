@@ -1,6 +1,6 @@
 # bitwarden-password-manager-eso
 
-![Version: 1.5.2](https://img.shields.io/badge/Version-1.5.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.1.0](https://img.shields.io/badge/AppVersion-2026.1.0-informational?style=flat-square)
+![Version: 1.5.2](https://img.shields.io/badge/Version-1.5.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.10.0](https://img.shields.io/badge/AppVersion-2026.10.0-informational?style=flat-square)
 
 Bitwarden CLI + ClusterSecretStore for External Secrets Operator
 
@@ -35,22 +35,25 @@ See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-mana
 | bitwarden.host | string | `"https://vault.bitwarden.com"` |  |
 | bitwarden.password | string | `""` |  |
 | bitwarden.username | string | `""` |  |
+| bwServe.disableOriginProtection | bool | `true` |  |
 | clusterSecretStores[0].jsonPath | string | `"$.data.login.username"` |  |
 | clusterSecretStores[0].name | string | `"bitwarden-login"` |  |
 | clusterSecretStores[1].jsonPath | string | `"$.data.login.password"` |  |
 | clusterSecretStores[1].name | string | `"bitwarden-password"` |  |
 | clusterSecretStores[2].jsonPath | string | `"$.data.fields"` |  |
 | clusterSecretStores[2].name | string | `"bitwarden-fields"` |  |
-| clusterSecretStores[3].jsonPath | string | `"$.data.notes"` |  |
-| clusterSecretStores[3].name | string | `"bitwarden-notes"` |  |
-| clusterSecretStores[4].jsonPath | string | `"$.data.attachments"` |  |
-| clusterSecretStores[4].name | string | `"bitwarden-attachments"` |  |
-| clusterSecretStores[5].jsonPath | string | `"$.data.sshKey.privateKey"` |  |
-| clusterSecretStores[5].name | string | `"bitwarden-ssh-private-key"` |  |
-| clusterSecretStores[6].jsonPath | string | `"$.data.sshKey.publicKey"` |  |
-| clusterSecretStores[6].name | string | `"bitwarden-ssh-public-key"` |  |
-| clusterSecretStores[7].jsonPath | string | `"$.data.sshKey.keyFingerprint"` |  |
-| clusterSecretStores[7].name | string | `"bitwarden-ssh-fingerprint"` |  |
+| clusterSecretStores[3].jsonPath | string | `"$.data.fields[?(@.name==\"{{ .remoteRef.property }}\")].value"` |  |
+| clusterSecretStores[3].name | string | `"bitwarden-field"` |  |
+| clusterSecretStores[4].jsonPath | string | `"$.data.notes"` |  |
+| clusterSecretStores[4].name | string | `"bitwarden-notes"` |  |
+| clusterSecretStores[5].jsonPath | string | `"$.data.attachments"` |  |
+| clusterSecretStores[5].name | string | `"bitwarden-attachments"` |  |
+| clusterSecretStores[6].jsonPath | string | `"$.data.sshKey.privateKey"` |  |
+| clusterSecretStores[6].name | string | `"bitwarden-ssh-private-key"` |  |
+| clusterSecretStores[7].jsonPath | string | `"$.data.sshKey.publicKey"` |  |
+| clusterSecretStores[7].name | string | `"bitwarden-ssh-public-key"` |  |
+| clusterSecretStores[8].jsonPath | string | `"$.data.sshKey.keyFingerprint"` |  |
+| clusterSecretStores[8].name | string | `"bitwarden-ssh-fingerprint"` |  |
 | command | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |

@@ -5,13 +5,17 @@ image:
   pullPolicy: IfNotPresent
   tag: "2026.10.0"
 
-# Override the image's own ENTRYPOINT/CMD. Empty by default (uses the
-# image's built-in entrypoint.sh unchanged). Needed e.g. to add
-# `--disable-origin-protection` to the final `bw serve` call -- the
-# image's entrypoint.sh has that flag hardcoded as a comment with no env
-# var to toggle it, and recent CLI versions reject requests whose Host
-# header isn't localhost (as any request routed through a Kubernetes
-# Service will be), so `bw serve` alone 403s External Secrets Operator.
+bwServe:
+  # Recent CLI versions reject requests whose Host header isn't localhost,
+  # which is every request routed through the Service, so External Secrets
+  # Operator gets 403s. When true, the container runs the image's
+  # entrypoint.sh logic with `--disable-origin-protection` added to
+  # `bw serve`; when false, the image's entrypoint.sh runs unchanged.
+  # Ignored when `command` or `args` are set.
+  disableOriginProtection: true
+
+# Override the image's own ENTRYPOINT/CMD. Empty by default. Takes
+# precedence over bwServe.disableOriginProtection.
 command: []
 args: []
 
@@ -70,6 +74,10 @@ clusterSecretStores:
     jsonPath: "$.data.login.password"
   - name: bitwarden-fields
     jsonPath: "$.data.fields"
+  # One custom field by name: remoteRef.key = item ID, remoteRef.property =
+  # field name. ESO renders remoteRef into the jsonPath before evaluating it.
+  - name: bitwarden-field
+    jsonPath: "$.data.fields[?(@.name==\"{{ .remoteRef.property }}\")].value"
   - name: bitwarden-notes
     jsonPath: "$.data.notes"
   - name: bitwarden-attachments

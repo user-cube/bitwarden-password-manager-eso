@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.6.0...v1.7.0) (2026-10-26)
+
+
+### Features
+
+* optional NetworkPolicy, existingSecret and safer defaults ([#18](https://github.com/user-cube/bitwarden-password-manager-eso/issues/18)) ([3603830](https://github.com/user-cube/bitwarden-password-manager-eso/commit/360383044779882484b4466ad9e5a99f30a40ab2))
+
 # [1.6.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.5.2...v1.6.0) (2026-10-26)
 
 

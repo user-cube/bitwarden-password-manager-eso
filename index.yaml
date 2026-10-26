@@ -5,6 +5,22 @@ entries:
       artifacthub.io/category: security
       artifacthub.io/changes: |
         - kind: changed
+          description: Release 1.5.1
+    apiVersion: v2
+    appVersion: 2026.1.0
+    created: "2026-10-26T22:42:35.601703288Z"
+    description: Bitwarden CLI + ClusterSecretStore for External Secrets Operator
+    digest: 82f0d35e2989cad8859bbc43d6464556f00e687fcf44674954e537373bb14d61
+    icon: https://user-cube.github.io/bitwarden-password-manager-eso/docs/assets/logo-64x64.png
+    name: bitwarden-password-manager-eso
+    type: application
+    urls:
+    - https://github.com/user-cube/bitwarden-password-manager-eso/releases/download/bitwarden-password-manager-eso-1.5.1/bitwarden-password-manager-eso-1.5.1.tgz
+    version: 1.5.1
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: changed
           description: Release 1.5.0
     apiVersion: v2
     appVersion: 2026.1.0
@@ -296,4 +312,4 @@ entries:
     urls:
     - https://github.com/user-cube/bitwarden-password-manager-eso/releases/download/bitwarden-password-manager-eso-1.0.0/bitwarden-password-manager-eso-1.0.0.tgz
     version: 1.0.0
-generated: "2026-08-22T14:11:09.516196732Z"
+generated: "2026-10-26T22:42:35.601864783Z"

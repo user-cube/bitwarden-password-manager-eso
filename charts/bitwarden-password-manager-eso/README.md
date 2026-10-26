@@ -32,6 +32,7 @@ See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-mana
 | args | list | `[]` |  |
 | bitwarden.clientId | string | `""` |  |
 | bitwarden.clientSecret | string | `""` |  |
+| bitwarden.existingSecret | string | `""` |  |
 | bitwarden.host | string | `"https://vault.bitwarden.com"` |  |
 | bitwarden.password | string | `""` |  |
 | bitwarden.username | string | `""` |  |
@@ -60,6 +61,9 @@ See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-mana
 | image.repository | string | `"ghcr.io/charlesthomas/bitwarden-cli"` |  |
 | image.tag | string | `"2026.10.0"` |  |
 | nameOverride | string | `""` |  |
+| networkPolicy.allowedNamespaces[0] | string | `"external-secrets"` |  |
+| networkPolicy.enabled | bool | `false` |  |
+| networkPolicy.extraFrom | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | replicaCount | int | `1` |  |
@@ -78,6 +82,7 @@ See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-mana
 | sync.resources.requests.cpu | string | `"10m"` |  |
 | sync.resources.requests.memory | string | `"32Mi"` |  |
 | sync.schedule | string | `"0 * * * *"` |  |
+| sync.timeoutSeconds | int | `30` |  |
 | tolerations | list | `[]` |  |
 
 ----------------------------------------------

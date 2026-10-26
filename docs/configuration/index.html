@@ -387,6 +387,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#origin-protection-bw-serve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Origin protection (bw serve)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -553,6 +564,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#origin-protection-bw-serve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Origin protection (bw serve)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -613,6 +635,14 @@ securityContext:
   limits:
     memory: 256Mi
 </code></pre>
+<h2 id="origin-protection-bw-serve">Origin protection (<code>bw serve</code>)</h2>
+<p>Recent Bitwarden CLI versions reject any request whose <code>Host</code> header isn't <code>localhost</code>. Requests from External Secrets Operator go through the Kubernetes Service, so they all get <code>403</code>.</p>
+<p>By default the chart starts the container with the same steps as the image's <code>entrypoint.sh</code> and adds <code>--disable-origin-protection</code> to <code>bw serve</code>:</p>
+<pre><code class="language-yaml">bwServe:
+  disableOriginProtection: true # default
+</code></pre>
+<p>Set it to <code>false</code> to run the image's own <code>entrypoint.sh</code> unchanged. If you set <code>command</code> or <code>args</code>, they take precedence and this option is ignored.</p>
+<p>Only the Service exposes <code>bw serve</code>; restrict who can reach it (for example with a NetworkPolicy that allows only the External Secrets Operator namespace).</p>
 
 
 

@@ -377,6 +377,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example-fetching-one-custom-field-by-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Fetching one custom field by name
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -592,6 +603,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example-fetching-one-custom-field-by-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Fetching one custom field by name
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -623,7 +645,8 @@
 <ul>
 <li><code>bitwarden-login</code>: For fetching usernames.</li>
 <li><code>bitwarden-password</code>: For fetching passwords.</li>
-<li><code>bitwarden-fields</code>: For fetching custom fields.</li>
+<li><code>bitwarden-fields</code>: For fetching custom fields (ESO keeps only the first element of an array result, so this returns just the first field).</li>
+<li><code>bitwarden-field</code>: For fetching one custom field by name (see below).</li>
 <li><code>bitwarden-notes</code>: For fetching notes.</li>
 <li><code>bitwarden-attachments</code>: For fetching attachments.</li>
 <li><code>bitwarden-ssh-private-key</code>: For fetching the private key of an SSH Key item.</li>
@@ -687,6 +710,25 @@ spec:
 <p>You can also trigger a sync manually at any time by running a curl command from within the cluster:</p>
 <pre><code class="language-bash">kubectl run curl --image=curlimages/curl -i --tty --rm -- \
   curl -X POST http://bitwarden-password-manager-eso.default.svc.cluster.local:8087/sync
+</code></pre>
+<h3 id="example-fetching-one-custom-field-by-name">Example: Fetching one custom field by name</h3>
+<p>Use the <code>bitwarden-field</code> store with <code>remoteRef.property</code> set to the field name:</p>
+<pre><code class="language-yaml">apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: my-app-api-token
+spec:
+  refreshInterval: &quot;1h&quot;
+  secretStoreRef:
+    name: bitwarden-field
+    kind: ClusterSecretStore
+  target:
+    name: my-app-api-token
+  data:
+    - secretKey: token
+      remoteRef:
+        key: &quot;your-bitwarden-item-uuid&quot;
+        property: &quot;api-token&quot; # custom field name
 </code></pre>
 
 

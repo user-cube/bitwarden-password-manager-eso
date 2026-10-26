@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.5.2...v1.6.0) (2026-10-26)
+
+
+### Features
+
+* disable bw serve origin protection by default and add bitwarden-field store ([#17](https://github.com/user-cube/bitwarden-password-manager-eso/issues/17)) ([485f93b](https://github.com/user-cube/bitwarden-password-manager-eso/commit/485f93b37bfd4986d98c2b0b46304dfcb0cae6d7))
+
 ## [1.5.2](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.5.1...v1.5.2) (2026-10-26)
 
 

@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.5.0...v1.5.1) (2026-10-26)
+
+
+### Bug Fixes
+
+* Update Bitwarden CLI image tag to 2026.7.0 ([#15](https://github.com/user-cube/bitwarden-password-manager-eso/issues/15)) ([88b3b53](https://github.com/user-cube/bitwarden-password-manager-eso/commit/88b3b539288e47c4d9fc133270fdb5e6e638fe38))
+
 # [1.5.0](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.4.0...v1.5.0) (2026-08-22)
 
 

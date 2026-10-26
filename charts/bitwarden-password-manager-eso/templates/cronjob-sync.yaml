@@ -14,6 +14,7 @@ spec:
         metadata:
           labels:
             {{- include "bitwarden-password-manager-eso.labels" . | nindent 12 }}
+            app.kubernetes.io/component: sync
         spec:
           serviceAccountName: {{ include "bitwarden-password-manager-eso.serviceAccountName" . }}
           securityContext:
@@ -25,6 +26,12 @@ spec:
             image: "{{ .Values.sync.image.repository }}:{{ .Values.sync.image.tag }}"
             command:
             - curl
+            # Fail the Job on HTTP errors instead of exiting 0.
+            - --fail
+            - --show-error
+            - --silent
+            - --max-time
+            - "{{ .Values.sync.timeoutSeconds }}"
             - -X
             - POST
             - {{ printf "http://%s.%s.svc.cluster.local:8087/sync" (include "bitwarden-password-manager-eso.fullname" .) .Release.Namespace | quote }}

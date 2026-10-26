@@ -74,3 +74,28 @@ Set it to `false` to run the image's own `entrypoint.sh` unchanged. If you set `
 
 Only the Service exposes `bw serve`; restrict who can reach it (for example with a NetworkPolicy that allows only the External Secrets Operator namespace).
 
+## Network policy
+
+`bw serve` returns the unlocked vault to anyone who can reach the Service, without authentication. Enable the bundled NetworkPolicy so only External Secrets Operator (and the sync CronJob) can reach it:
+
+```yaml
+networkPolicy:
+  enabled: true
+  allowedNamespaces:
+    - external-secrets # namespace where ESO runs
+  extraFrom: []        # extra NetworkPolicyPeer entries
+```
+
+It only restricts ingress; egress to your Bitwarden server is untouched. Your CNI must enforce NetworkPolicies.
+
+## Existing credentials Secret
+
+Instead of putting credentials in values (with SOPS), point the chart at a Secret you manage yourself (sealed-secrets, a bootstrap ExternalSecret, Vault, ...):
+
+```yaml
+bitwarden:
+  existingSecret: bitwarden-credentials
+```
+
+The Secret must contain `BW_HOST`, `BW_USER`, `BW_PASSWORD` and optionally `BW_CLIENTID`/`BW_CLIENTSECRET`. With the chart-managed Secret, the Deployment restarts automatically when credentials change; with `existingSecret` it does not, so use a tool such as Reloader.
+

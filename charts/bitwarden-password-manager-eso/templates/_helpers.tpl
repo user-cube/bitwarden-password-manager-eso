@@ -77,3 +77,10 @@ bw unlock --check
 echo 'Running `bw serve` on port 8087'
 bw serve --hostname all --disable-origin-protection
 {{- end }}
+
+{{/*
+Name of the Secret holding the Bitwarden credentials
+*/}}
+{{- define "bitwarden-password-manager-eso.credentialsSecretName" -}}
+{{- .Values.bitwarden.existingSecret | default (printf "%s-credentials" (include "bitwarden-password-manager-eso.fullname" .)) }}
+{{- end }}

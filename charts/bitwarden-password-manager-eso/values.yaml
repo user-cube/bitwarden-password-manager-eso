@@ -45,6 +45,10 @@ securityContext: {}
 # Bitwarden credentials - override with SOPS-encrypted values
 # See docs/sops-secrets.md for details
 bitwarden:
+  # Name of an existing Secret with the keys BW_HOST, BW_USER, BW_PASSWORD
+  # and optionally BW_CLIENTID/BW_CLIENTSECRET. When set, the chart does not
+  # create its own credentials Secret and ignores the values below.
+  existingSecret: ""
   host: "https://vault.bitwarden.com"
   username: ""
   password: ""
@@ -55,6 +59,8 @@ bitwarden:
 sync:
   enabled: false
   schedule: "0 * * * *" # Every hour
+  # curl --max-time for the POST /sync request.
+  timeoutSeconds: 30
   image:
     repository: curlimages/curl
     tag: 8.23.0
@@ -101,3 +107,13 @@ resources:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
+# Restrict who can reach `bw serve`. It serves the unlocked vault without
+# authentication, so by default any pod in the cluster can read it.
+networkPolicy:
+  enabled: false
+  # Namespaces allowed to call bw serve (External Secrets Operator).
+  allowedNamespaces:
+    - external-secrets
+  # Extra ingress peers (NetworkPolicyPeer list), e.g. a monitoring namespace.
+  extraFrom: []

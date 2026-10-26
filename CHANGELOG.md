@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.5.1...v1.5.2) (2026-10-26)
+
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/charlesthomas/bitwarden-cli docker tag to v2026.10.0 ([#16](https://github.com/user-cube/bitwarden-password-manager-eso/issues/16)) ([0cce8d9](https://github.com/user-cube/bitwarden-password-manager-eso/commit/0cce8d90a9b82a72f2adf3eedbcf4b8b40814ef5))
+
 ## [1.5.1](https://github.com/user-cube/bitwarden-password-manager-eso/compare/v1.5.0...v1.5.1) (2026-10-26)
 
 

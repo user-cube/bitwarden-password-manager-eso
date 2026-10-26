@@ -58,3 +58,19 @@ resources:
   limits:
     memory: 256Mi
 ```
+
+## Origin protection (`bw serve`)
+
+Recent Bitwarden CLI versions reject any request whose `Host` header isn't `localhost`. Requests from External Secrets Operator go through the Kubernetes Service, so they all get `403`.
+
+By default the chart starts the container with the same steps as the image's `entrypoint.sh` and adds `--disable-origin-protection` to `bw serve`:
+
+```yaml
+bwServe:
+  disableOriginProtection: true # default
+```
+
+Set it to `false` to run the image's own `entrypoint.sh` unchanged. If you set `command` or `args`, they take precedence and this option is ignored.
+
+Only the Service exposes `bw serve`; restrict who can reach it (for example with a NetworkPolicy that allows only the External Secrets Operator namespace).
+

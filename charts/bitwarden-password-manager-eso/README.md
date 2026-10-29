@@ -59,7 +59,7 @@ See the [SOPS secrets guide](https://user-cube.github.io/bitwarden-password-mana
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/charlesthomas/bitwarden-cli"` |  |
-| image.tag | string | `"2026.10.0"` |  |
+| image.tag | string | `"2026.10.1"` |  |
 | nameOverride | string | `""` |  |
 | networkPolicy.allowedNamespaces[0] | string | `"external-secrets"` |  |
 | networkPolicy.enabled | bool | `false` |  |
